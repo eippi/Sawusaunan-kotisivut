@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.vite/
+
+# Local visual verification artifacts
+qa/
+design-qa.md
