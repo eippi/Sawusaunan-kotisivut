@@ -654,12 +654,20 @@ p {
 
 .social-links a {
   display: grid;
-  grid-template-columns: 0.6fr 1fr auto;
+  grid-template-columns: auto 0.6fr 1fr auto;
   gap: 1rem;
   align-items: center;
   padding: 1.35rem 0;
   border-bottom: 1px solid rgba(253, 249, 240, 0.32);
   transition: color 180ms ease, padding 180ms ease;
+}
+
+/* Brändimerkit omassa sarakkeessaan, jotta ne eivät purista tunnusta
+   eivätkä kahvaa. Perivät tekstin värin, joten ne kirkastuvat hoverissa. */
+.social-links svg {
+  width: clamp(1.15rem, 1.5vw, 1.45rem);
+  height: auto;
+  fill: currentColor;
 }
 
 .social-links a:hover {
@@ -824,7 +832,7 @@ p {
    saa ohittaa sitä specificityllä. */
 @media (min-width: 901px) {
   .contact-page-grid .social-links a {
-    grid-template-columns: 0.42fr 1fr auto;
+    grid-template-columns: auto 0.42fr 1fr auto;
   }
 }
 
@@ -1028,16 +1036,26 @@ p {
     width: min(86%, 300px);
   }
 
+  /* Tunnus omalle rivilleen, ikoni + kahva + nuoli sen alle. */
   .social-links a {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: auto 1fr auto;
   }
 
   .social-links span {
-    grid-column: 1 / -1;
+    grid-area: 1 / 1 / 2 / -1;
+  }
+
+  .social-links svg {
+    grid-area: 2 / 1;
   }
 
   .social-links strong {
+    grid-area: 2 / 2;
     font-size: 1.6rem;
+  }
+
+  .social-links b {
+    grid-area: 2 / 3;
   }
 
   .footer-grid {
