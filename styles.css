@@ -791,15 +791,6 @@ p {
   overflow: hidden;
 }
 
-.subpage-grid {
-  display: grid;
-  /* Tekstipalsta tarvitsee leipätekstille tilaa; otsikko rajautuu joka
-     tapauksessa omaan max-widthiinsä, joten sen sarake sai kaventua. */
-  grid-template-columns: 0.45fr 1.25fr 1.05fr;
-  gap: clamp(2rem, 5vw, 5rem);
-  align-items: start;
-}
-
 /* Katto pidetään maltillisena: yksittäinen pitkä sana (esim. "Sawusauna.")
    kasvattaa 1fr-sarakkeen min-content-leveyttä ja puristaa viereisen palstan. */
 .subpage-intro h1 {
@@ -808,12 +799,7 @@ p {
   line-height: 0.88;
 }
 
-.subpage-copy {
-  padding-top: 1rem;
-}
-
 /* Pitkät tekstit pysyvät Figtreessä — display-fontti vain otsikoissa. */
-.subpage-copy .lead,
 .join-intro .lead,
 .contact-intro .lead {
   font-family: var(--sans);
@@ -822,13 +808,129 @@ p {
   line-height: 1.42;
 }
 
-.subpage-copy p + p {
-  margin-top: 1.5rem;
+/* --- Sawusauna-sivun tarinarakenne ----------------------------------------
+   Kolme kaistaa sivuston omalla rytmillä (cream -> ruskea -> hiekka) yhden
+   jäykän kolmen sarakkeen ruudukon sijaan. Kukin kaista kantaa yhden ajatuksen. */
+.story-open {
+  padding: clamp(4rem, 7vw, 7.5rem) 0 clamp(5rem, 9vw, 9rem);
 }
 
-.subpage-copy p:not(.lead) {
+.story-open-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: clamp(1.6rem, 3.5vw, 3rem) clamp(3rem, 7vw, 7rem);
+  align-items: end;
+}
+
+.story-open-grid .section-label {
+  grid-column: 1 / -1;
+}
+
+.story-open-grid h1 {
+  max-width: 11ch;
+  font-family: var(--display);
+  font-size: clamp(3rem, 7vw, 7.4rem);
+  font-weight: 900;
+  letter-spacing: -0.018em;
+  line-height: 0.9;
+}
+
+/* Ingressi asettuu otsikon alalinjaan — ei enää ahdas sivupalsta. */
+.story-open-grid .lead {
+  max-width: 32rem;
+  padding-bottom: 0.6rem;
+  font-family: var(--sans);
+  font-size: clamp(1.16rem, 1.7vw, 1.5rem);
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.story-statement {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  /* Alareunaan vain revityn paperin verran ylimääräistä — ei tuplapehmustetta. */
+  padding: clamp(5rem, 9vw, 9rem) 0
+    calc(clamp(3rem, 5vw, 5rem) + clamp(72px, 8vw, 118px));
+  background: var(--brown);
+  color: var(--cream-light);
+}
+
+/* Käyttämätön kondenssitekstuuri saunahöyryksi: tumma kuva screen-sekoituksella
+   jättää ruskean rauhaan ja nostaa vain pisarat esiin. */
+.story-steam {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* 0.42 pudotti kirkkaimpien pisaroiden kohdalla kontrastin 4.5:1:een;
+     0.26 pitää sen 5.5:1:ssä ja tekstuuri erottuu yhä. */
+  opacity: 0.26;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.story-statement h2 {
+  max-width: 15ch;
+  font-family: var(--display);
+  font-size: clamp(2.5rem, 5.8vw, 6rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 0.94;
+}
+
+/* Tukilause on väitteen toinen puolisko, ei kuvateksti — riittävästi painoa. */
+.story-statement > .page-shell > p {
   max-width: 34rem;
-  color: rgba(13, 47, 66, 0.86);
+  margin-top: clamp(1.6rem, 2.5vw, 2.4rem);
+  color: rgba(253, 249, 240, 0.92);
+  font-size: clamp(1.22rem, 1.95vw, 1.72rem);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* Yläpehmuste kevyempi: revitty paperi tuo jo ilmaa osion päälle. */
+.story-list {
+  padding: clamp(3rem, 5vw, 5rem) 0 clamp(5rem, 9vw, 9rem);
+  background: var(--sand);
+}
+
+.story-points {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.6rem, 3vw, 3rem);
+  margin-top: clamp(1.8rem, 3vw, 2.6rem);
+  list-style: none;
+}
+
+.story-points li {
+  padding-top: 1.1rem;
+  border-top: 2px solid rgba(13, 47, 66, 0.22);
+  font-family: var(--display);
+  font-size: clamp(1.45rem, 2.4vw, 2.35rem);
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  line-height: 1.04;
+}
+
+.story-next {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: clamp(2.6rem, 5vw, 4rem);
+  padding-bottom: 0.3rem;
+  border-bottom: 2px solid var(--brown);
+  color: var(--brown);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: gap 180ms ease;
+}
+
+.story-next:hover {
+  gap: 1.1rem;
 }
 
 .join-intro {
@@ -951,10 +1053,15 @@ p {
   .home-intro-grid,
   .membership-grid,
   .social-grid,
-  .subpage-grid,
+  .story-open-grid,
+  .story-points,
   .join-page-grid,
   .contact-page-grid {
     grid-template-columns: 1fr;
+  }
+
+  .story-open-grid {
+    align-items: start;
   }
 
   .home-intro-copy {
