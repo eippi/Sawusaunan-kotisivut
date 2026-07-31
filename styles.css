@@ -129,12 +129,15 @@ p {
   height: 100%;
 }
 
+/* Lähdekuva on pystykuva (1217x1293), joten leveä hero rajaa sitä rajusti ja
+   ihmiset nousevat ylös. Rajataan hieman alareunasta — revitty paperi peittää
+   sen kaistan joka tapauksessa — jotta taivasta jää otsikolle. */
 .hero-photo {
   z-index: -4;
   object-fit: cover;
-  object-position: center bottom;
+  object-position: center 92%;
   filter: saturate(0.68) contrast(1.02);
-  transform: translateY(-7%) scale(1.04);
+  transform: translateY(-4%) scale(1.03);
   transform-origin: center bottom;
 }
 
@@ -166,8 +169,10 @@ p {
   border-bottom: 1px solid var(--line);
 }
 
+/* Leveyden mukaan kuten ennen, mutta 24vh leikkaa koon matalilla ikkunoilla
+   jotta otsikolle jää taivasta. Kapea mutta korkea ikkuna säilyttää täyden koon. */
 .brand {
-  width: clamp(172px, 16vw, 255px);
+  width: clamp(112px, min(max(172px, 16vw), 24vh), 255px);
   transition: transform 180ms ease;
 }
 
@@ -237,7 +242,7 @@ p {
   gap: 0.04em;
   color: var(--navy);
   font-family: var(--display);
-  font-size: clamp(2.2rem, 4.3vw, 4.35rem);
+  font-size: clamp(1.5rem, min(4.3vw, 7.6vh), 4.35rem);
   font-weight: 900;
   letter-spacing: -0.005em;
   line-height: 0.92;
