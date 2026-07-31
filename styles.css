@@ -111,6 +111,8 @@ p {
 
 .hero {
   position: relative;
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
   min-height: 100svh;
   isolation: isolate;
@@ -221,16 +223,17 @@ p {
 }
 
 /* Yksivärinen, paksu, ei varjoja — kuva on tarpeeksi vaalea kantamaan sen. */
+/* Virtaa yläpalkin alapuolella. Absoluuttisella %-sijainnilla otsikko nousi
+   kapeilla ikkunoilla logon päälle. */
 .window-message {
-  position: absolute;
+  position: relative;
   z-index: 1;
-  top: 32%;
-  left: 50%;
   display: grid;
   justify-items: center;
   /* Fraunces on selvästi leveämpi kuin vanha kondensoitu fontti: leveämpi
      kontti + maltillisempi katto pitävät lockupin kahdella rivillä. */
   width: min(1460px, calc(100% - 3rem));
+  margin: clamp(1.25rem, 3.5vh, 3.5rem) auto 0;
   gap: 0.04em;
   color: var(--navy);
   font-family: var(--display);
@@ -240,7 +243,6 @@ p {
   line-height: 0.92;
   text-align: center;
   text-transform: uppercase;
-  transform: translate(-50%, -50%);
 }
 
 .window-message > span {
@@ -901,7 +903,6 @@ p {
   }
 
   .window-message {
-    top: 32%;
     width: calc(100% - 2rem);
     font-size: clamp(1.5rem, 4.6vw, 2.7rem);
   }
@@ -976,7 +977,6 @@ p {
   }
 
   .window-message {
-    top: 32%;
     width: calc(100% - 1.5rem);
     font-size: clamp(1.35rem, 5.4vw, 1.75rem);
     line-height: 0.98;
