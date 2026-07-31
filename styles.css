@@ -789,28 +789,6 @@ p {
   min-height: calc(100vh - 126px);
   padding: clamp(5rem, 9vw, 9rem) 0;
   overflow: hidden;
-  /* Oma pinoutumiskonteksti, jotta jättinumero pysyy taustan päällä
-     mutta sisällön alla myös värillisissä osioissa. */
-  isolation: isolate;
-}
-
-.subpage-intro::after {
-  position: absolute;
-  z-index: 0;
-  right: -0.06em;
-  bottom: -0.18em;
-  color: rgba(13, 47, 66, 0.05);
-  content: attr(data-number);
-  font-family: var(--display);
-  font-size: min(56vw, 52rem);
-  font-weight: 900;
-  line-height: 0.75;
-  pointer-events: none;
-}
-
-.subpage-intro > .page-shell {
-  position: relative;
-  z-index: 1;
 }
 
 .subpage-grid {
@@ -893,10 +871,6 @@ p {
 .contact-intro {
   background: var(--brown);
   color: var(--cream-light);
-}
-
-.contact-intro::after {
-  color: rgba(253, 249, 240, 0.08);
 }
 
 .contact-page-grid .lead {
