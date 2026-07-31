@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f49a00" />
+    <meta name="description" content="Liity Sawusauna Ry:n jäseneksi." />
+    <title>Sawusauna Ry | Liity jäseneksi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="subpage-body join-page" data-page="join">
+    <a class="skip-link" href="#content">Siirry sisältöön</a>
+
+    <header class="site-header site-header--inner" data-header>
+      <a class="brand" href="/" aria-label="Sawusauna Ry, etusivu">
+        <img class="brand-logo" src="/assets/SawusaunaLogo.png" alt="Sawusauna Ry" />
+      </a>
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="main-navigation"
+      >
+        Valikko
+      </button>
+      <nav class="main-nav" id="main-navigation" aria-label="Päävalikko">
+        <a href="/">Etusivu</a>
+        <a href="/sawusauna.html">Sawusauna</a>
+        <a class="is-active" href="/liity.html">Liity jäseneksi</a>
+        <a href="/yhteys.html">Ota yhteyttä</a>
+      </nav>
+    </header>
+
+    <main class="subpage-main" id="content">
+      <section class="subpage-intro join-intro">
+        <div class="page-shell join-page-grid">
+          <div class="reveal">
+            <p class="section-label">02 / Liity jäseneksi</p>
+            <h1>Tervetuloa lauteille.</h1>
+            <p class="lead">
+              Täytä jäsenlomake napista tai skannaa QR-koodi.
+            </p>
+            <a
+              class="primary-button"
+              href="https://bit.ly/sawusauna-jasenlomake"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Avaa jäsenlomake
+            </a>
+          </div>
+          <a
+            class="qr-card reveal"
+            href="https://bit.ly/sawusauna-jasenlomake"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Avaa Sawusaunan jäsenlomake"
+          >
+            <img
+              src="/assets/membership-qr.png"
+              alt="QR-koodi Sawusaunan jäsenlomakkeeseen"
+            />
+            <span>Skannaa ja liity</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="page-shell footer-grid">
+        <img src="/assets/SawusaunaLogo.png" alt="Sawusauna Ry" />
+        <p>Turun kauppakorkeakoulun saunomis- ja rentoutumiskerho.</p>
+        <a href="/">Etusivulle →</a>
+      </div>
+    </footer>
+    <script type="module" src="/script.js"></script>
+  </body>
+</html>

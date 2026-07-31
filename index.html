@@ -3,12 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0a293d" />
+    <meta name="theme-color" content="#082a3e" />
     <meta
       name="description"
-      content="Sawusauna Ry on Turun kauppakorkeakoulun oma saunomisseura."
+      content="Sawusauna Ry on Turun kauppakorkeakoulun saunomis- ja rentoutumiskerho."
     />
-    <title>Sawusauna Ry | Löylyt ilman pönötystä</title>
+    <title>Sawusauna Ry | Etusivu</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -17,22 +17,21 @@
     />
     <link rel="stylesheet" href="/styles.css" />
   </head>
-  <body>
-    <a class="skip-link" href="#sawusauna">Siirry sisältöön</a>
+  <body data-page="home">
+    <a class="skip-link" href="#home-content">Siirry sisältöön</a>
 
     <main>
-      <section class="hero" id="etusivu" data-hero aria-labelledby="hero-title">
+      <section class="hero" id="etusivu" aria-labelledby="hero-title">
         <img
           class="hero-photo"
-          src="/assets/sauna-friends.jpg"
-          alt="Ystävykset viettävät rentoa iltaa saunan lauteilla"
+          src="/assets/sawusauna-cloud-hero.png"
+          alt="Sawusaunan jäsenet seisovat banderollin kanssa pilvisen taivaan alla"
           fetchpriority="high"
         />
         <div class="hero-tint" aria-hidden="true"></div>
-        <canvas class="steam-canvas" data-steam aria-hidden="true"></canvas>
 
         <header class="site-header" data-header>
-          <a class="brand" href="#etusivu" aria-label="Sawusauna Ry, etusivu">
+          <a class="brand" href="/" aria-label="Sawusauna Ry, etusivu">
             <img
               class="brand-logo"
               src="/assets/SawusaunaLogo.png"
@@ -50,23 +49,21 @@
           </button>
 
           <nav class="main-nav" id="main-navigation" aria-label="Päävalikko">
-            <a href="#etusivu">Etusivu</a>
-            <a href="#sawusauna">Sawusauna</a>
-            <a href="#liity">Liity jäseneksi</a>
-            <a href="#yhteys">Ota yhteyttä</a>
+            <a class="is-active" href="/">Etusivu</a>
+            <a href="/sawusauna.html">Sawusauna</a>
+            <a href="/liity.html">Liity jäseneksi</a>
+            <a href="/yhteys.html">Ota yhteyttä</a>
           </nav>
         </header>
 
-        <div class="hero-copy">
-          <h1 id="hero-title">
-            <span>Löylyt ilman</span>
-            <span>pönötystä.</span>
-          </h1>
-          <p>Kyltereiden oma saunomisseura Turussa.</p>
-          <a class="text-link hero-link" href="#liity">Tule mukaan</a>
-        </div>
+        <h1 class="window-message" id="hero-title">
+          <span>Turun kauppakorkeakoulun</span>
+          <span>saunomis- ja rentoutumiskerho</span>
+          <small class="est-mark" aria-label="Perustettu vuonna 2023">
+            <span aria-hidden="true">EST. 2023</span>
+          </small>
+        </h1>
 
-        <p class="steam-hint" aria-hidden="true">Liikuta höyryä</p>
         <img
           class="paper-tear"
           src="/assets/torn-paper.png"
@@ -75,124 +72,131 @@
         />
       </section>
 
-      <section class="manifesto paper-section" aria-label="Sawusaunan ajatus">
-        <div class="page-shell manifesto-inner">
-          <p class="section-index">01 / Lauteilla</p>
-          <p class="manifesto-line">
-            Hyvä seura. Kuumat löylyt. Ei sen vaikeampaa.
-          </p>
-          <p class="manifesto-note">
-            Vastapainoa opiskelijaelämän kiireelle, yhdessä ja omalla tyylillä.
+      <section class="home-intro" id="home-content">
+        <div class="page-shell home-intro-grid reveal">
+          <p class="section-label">Sawusauna pähkinänkuoressa</p>
+          <h2>Placeholder-otsikko Sawusaunan ajatuksesta.</h2>
+          <p class="home-intro-copy">
+            Placeholder-teksti: tähän tulee lyhyt ja osuva esittely Sawusaunasta,
+            sen yhteisöstä ja siitä, miksi lauteille kannattaa tulla mukaan.
           </p>
         </div>
       </section>
 
-      <section class="about paper-section" id="sawusauna">
-        <div class="page-shell about-grid">
-          <div class="about-heading reveal">
-            <p class="section-index">02 / Sawusauna</p>
-            <h2>Yhdessä on lämpimämpää.</h2>
+      <section class="events-section" aria-labelledby="events-title">
+        <div class="page-shell section-heading reveal">
+          <div>
+            <p class="section-label light">Menneitä tapahtumia</p>
+            <h2 id="events-title">Lauteilta ja niiden vierestä.</h2>
           </div>
-
-          <div class="about-copy reveal">
-            <p class="lead">
-              Sawusauna on Turun kauppakorkeakoulun opiskelijoiden oma
-              saunomisseura.
-            </p>
-            <p>
-              Järjestämme rentoja saunailtoja, avantoa ja välillä vähän
-              vauhdikkaampaa menoa. Tärkeintä on hyvä porukka ja matala kynnys
-              tulla mukaan.
-            </p>
+          <div class="carousel-controls" aria-label="Karusellin ohjaimet">
+            <button type="button" data-carousel-prev aria-label="Edellinen tapahtuma">
+              ←
+            </button>
+            <button type="button" data-carousel-next aria-label="Seuraava tapahtuma">
+              →
+            </button>
           </div>
         </div>
 
-        <div class="page-shell photo-ledger">
-          <figure class="ledger-main reveal">
+        <div class="event-carousel" data-carousel>
+          <article class="event-card">
             <img
-              src="/assets/sauna-steam.jpg"
-              alt="Vettä kaadetaan kiukaalle talvisessa saunassa"
+              src="/assets/event-icebreaker.png"
+              alt="Sawusauna Icebreaker -tapahtumajuliste"
               loading="lazy"
             />
-            <figcaption>Löyly / lämpö</figcaption>
-          </figure>
-
-          <div class="ledger-note reveal">
-            <span class="ledger-number">85°</span>
-            <p>
-              Ei suorittamista. Ei pukukoodia. Vain hetki, jolloin arki jää
-              pukuhuoneeseen.
-            </p>
-          </div>
-
-          <figure class="ledger-side reveal">
+            <div>
+              <span>01</span>
+              <h3>Icebreaker</h3>
+            </div>
+          </article>
+          <article class="event-card">
             <img
-              src="/assets/winter-swimmers.jpg"
-              alt="Avantouimarit valmistautuvat jäiseen järveen"
+              src="/assets/event-vappulahdus.png"
+              alt="Sawusaunan Vappulahdus -tapahtumajuliste"
               loading="lazy"
             />
-            <figcaption>Avanto / virta</figcaption>
-          </figure>
+            <div>
+              <span>02</span>
+              <h3>Vappulahdus</h3>
+            </div>
+          </article>
+          <article class="event-card">
+            <img
+              src="/assets/event-pupulikointi.png"
+              alt="Sawusaunan Pupulikointi-tapahtumajuliste"
+              loading="lazy"
+            />
+            <div>
+              <span>03</span>
+              <h3>Pupulikointi</h3>
+            </div>
+          </article>
         </div>
       </section>
 
-      <section class="join-section" id="liity">
-        <div class="join-marquee" aria-hidden="true">
-          <span>LAUTEILLE · LAUTEILLE · LAUTEILLE · LAUTEILLE ·</span>
-        </div>
-
-        <div class="page-shell join-grid">
-          <div class="join-heading reveal">
-            <p class="section-index light">03 / Liity jäseneksi</p>
-            <h2>Tule mukaan lauteille.</h2>
-          </div>
-
-          <div class="join-copy reveal">
+      <section class="membership-section">
+        <div class="page-shell membership-grid">
+          <div class="membership-copy reveal">
+            <p class="section-label">Liity jäseneksi</p>
+            <h2>Sinulle on tilaa lauteilla.</h2>
             <p>
-              Liittymisohjeet ja jäsenmaksu julkaistaan tähän pian. Sitä ennen
-              voit jättää meille viestin tai tulla rohkeasti seuraavaan
-              tapahtumaan.
+              Avaa jäsenlomake napista tai skannaa QR-koodi puhelimellasi.
             </p>
-            <a class="block-link" href="#yhteys" data-membership-link>
-              Kysy jäsenyydestä
+            <a
+              class="primary-button"
+              href="https://bit.ly/sawusauna-jasenlomake"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Avaa jäsenlomake
             </a>
           </div>
-        </div>
 
-        <div class="page-shell sauna-rules reveal" aria-label="Sawusaunan periaatteet">
-          <p><span>01</span> Tule omana itsenäsi.</p>
-          <p><span>02</span> Jätä pönötys ovelle.</p>
-          <p><span>03</span> Anna tilaa myös muille.</p>
+          <a
+            class="qr-card reveal"
+            href="https://bit.ly/sawusauna-jasenlomake"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Avaa Sawusaunan jäsenlomake"
+          >
+            <img
+              src="/assets/membership-qr.png"
+              alt="QR-koodi Sawusaunan jäsenlomakkeeseen"
+              loading="lazy"
+            />
+            <span>Skannaa ja liity</span>
+          </a>
         </div>
       </section>
 
-      <section class="contact paper-section" id="yhteys">
-        <div class="page-shell contact-grid">
-          <div class="contact-heading reveal">
-            <p class="section-index">04 / Ota yhteyttä</p>
-            <h2>Jäikö jokin poreilemaan?</h2>
-            <p>
-              Kysy jäsenyydestä, tapahtumista tai yhteistyöstä. Vastaamme, kun
-              olemme taas kuivilla.
-            </p>
+      <section class="social-section" aria-labelledby="social-title">
+        <div class="page-shell social-grid">
+          <div class="reveal">
+            <p class="section-label light">Yhteystiedot</p>
+            <h2 id="social-title">Löydä meidät linjoilta.</h2>
           </div>
-
-          <form class="contact-form reveal" data-contact-form>
-            <label>
-              <span>Nimi</span>
-              <input name="name" type="text" autocomplete="name" required />
-            </label>
-            <label>
-              <span>Sähköposti</span>
-              <input name="email" type="email" autocomplete="email" required />
-            </label>
-            <label>
-              <span>Viesti</span>
-              <textarea name="message" rows="3" required></textarea>
-            </label>
-            <button class="submit-button" type="submit">Lähetä viesti</button>
-            <p class="form-status" data-form-status role="status" aria-live="polite"></p>
-          </form>
+          <div class="social-links reveal">
+            <a
+              href="https://www.instagram.com/sawusauna/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span>Instagram</span>
+              <strong>@sawusauna</strong>
+              <b aria-hidden="true">↗</b>
+            </a>
+            <a
+              href="https://www.linkedin.com/company/sawusauna-ry/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span>LinkedIn</span>
+              <strong>Sawusauna Ry</strong>
+              <b aria-hidden="true">↗</b>
+            </a>
+          </div>
         </div>
       </section>
     </main>
@@ -200,38 +204,8 @@
     <footer class="site-footer">
       <div class="page-shell footer-grid">
         <img src="/assets/SawusaunaLogo.png" alt="Sawusauna Ry" />
-        <p>Turun kauppakorkeakoulun oma saunomisseura.</p>
-        <div class="footer-links">
-          <a href="#etusivu">Takaisin ylös</a>
-          <a
-            href="https://www.tuky.fi/etusivu/harrastekerhot/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            TuKY:n harrastekerhot
-          </a>
-        </div>
-      </div>
-      <div class="page-shell photo-credits">
-        <p>
-          Valokuvat:
-          <a
-            href="https://www.pexels.com/photo/relaxing-nordic-sauna-experience-with-friends-32504786/"
-            target="_blank"
-            rel="noreferrer"
-          >HUUM / Pexels</a>,
-          <a
-            href="https://www.pexels.com/photo/nordic-sauna-experience-with-traditional-stones-31092917/"
-            target="_blank"
-            rel="noreferrer"
-          >HUUM / Pexels</a>
-          ja
-          <a
-            href="https://www.pexels.com/photo/photo-of-men-about-to-go-winter-swimming-15814243/"
-            target="_blank"
-            rel="noreferrer"
-          >Olavi Anttila / Pexels</a>.
-        </p>
+        <p>Turun kauppakorkeakoulun saunomis- ja rentoutumiskerho.</p>
+        <a href="#etusivu">Takaisin ylös ↑</a>
       </div>
     </footer>
 
