@@ -107,6 +107,78 @@ p {
   color: var(--orange);
 }
 
+/* --- Spray-leima ----------------------------------------------------------
+   Jaettu tyyli hero-osion EST. 2023 -merkin ja alasivujen tunnusten kesken.
+   Vaakalovet on ankkuroitu pikseleihin, koska pelkillä prosenteilla muoto
+   litistyisi vinoksi suorakaiteeksi leveämmässä elementissä. Yksi leima per
+   sivu — merkki menettää tehonsa jos sitä ripottelee.                       */
+.spray-mark {
+  position: relative;
+  z-index: 0;
+  width: fit-content;
+  padding: 0.44em 0.9em 0.4em;
+  color: var(--navy);
+  line-height: 1;
+  /* Estää leiman kutistumisen kapeassa ruudukkosarakkeessa: rivittynyt
+     teksti rikkoisi revityn muodon. */
+  white-space: nowrap;
+  transform: rotate(-1.6deg);
+  isolation: isolate;
+}
+
+.spray-mark::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: var(--orange);
+  clip-path: polygon(
+    3px 15%,
+    44% 4%,
+    calc(100% - 7px) 0,
+    100% 74%,
+    calc(100% - 7px) 97%,
+    54% 100%,
+    7px 91%,
+    0 27%
+  );
+  content: "";
+}
+
+.spray-mark::after {
+  position: absolute;
+  z-index: -1;
+  inset: -0.4em -0.6em;
+  background:
+    radial-gradient(circle, var(--orange) 0 45%, transparent 52%) 3% 34% / 0.24em
+      0.24em no-repeat,
+    radial-gradient(circle, var(--orange) 0 42%, transparent 50%) 11% 96% /
+      0.16em 0.16em no-repeat,
+    radial-gradient(circle, var(--orange) 0 44%, transparent 52%) 96% 18% /
+      0.2em 0.2em no-repeat,
+    radial-gradient(circle, var(--orange) 0 42%, transparent 50%) 89% 91% /
+      0.13em 0.13em no-repeat;
+  content: "";
+  opacity: 0.92;
+}
+
+/* Voittaa sekä .section-label että .section-label.light -värin */
+.section-label.spray-mark {
+  color: var(--navy);
+}
+
+/* Leima maalautuu vasta kun lohko tulee näkyviin */
+.reveal.is-visible .spray-mark::before {
+  animation: spray-swipe 520ms 160ms cubic-bezier(0.2, 0.78, 0.22, 1) both;
+}
+
+.reveal.is-visible .spray-mark::after {
+  animation: spray-dots 240ms 520ms ease-out both;
+}
+
+.reveal.is-visible .spray-mark > span {
+  animation: stencil-hit 320ms 480ms cubic-bezier(0.2, 0.8, 0.25, 1.2) both;
+}
+
 /* ---------- Hero ---------- */
 
 .hero {
@@ -259,48 +331,28 @@ p {
   animation-delay: 90ms;
 }
 
+/* Hero-merkki: perii .spray-markin ulkoasun, mutta pitää oman mittansa,
+   kallistuksensa, muotonsa ja hero-sisääntulon ajoituksen. */
 .est-mark {
-  position: relative;
-  z-index: 0;
   display: block;
   margin-top: 0.62em;
   padding: 0.3em 0.72em 0.25em;
-  color: var(--navy);
   font-family: var(--sans);
   font-size: clamp(0.82rem, 0.34em, 1.1rem);
   font-weight: 700;
   letter-spacing: 0.18em;
-  line-height: 1;
   transform: rotate(-2deg);
-  isolation: isolate;
 }
 
 .est-mark::before {
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  background: var(--orange);
   clip-path: polygon(2% 12%, 97% 0, 100% 76%, 94% 94%, 4% 100%, 0 24%);
-  content: "";
   transform: scaleX(0);
   transform-origin: left center;
   animation: spray-swipe 560ms 380ms cubic-bezier(0.2, 0.78, 0.22, 1) both;
 }
 
 .est-mark::after {
-  position: absolute;
-  z-index: -1;
   inset: -0.38em -0.55em;
-  background:
-    radial-gradient(circle, var(--orange) 0 45%, transparent 52%) 3% 34% / 0.24em
-      0.24em no-repeat,
-    radial-gradient(circle, var(--orange) 0 42%, transparent 50%) 11% 96% /
-      0.16em 0.16em no-repeat,
-    radial-gradient(circle, var(--orange) 0 44%, transparent 52%) 96% 18% /
-      0.2em 0.2em no-repeat,
-    radial-gradient(circle, var(--orange) 0 42%, transparent 50%) 89% 91% /
-      0.13em 0.13em no-repeat;
-  content: "";
   opacity: 0;
   animation: spray-dots 260ms 760ms ease-out both;
 }
@@ -763,7 +815,9 @@ p {
 
 .subpage-grid {
   display: grid;
-  grid-template-columns: 0.5fr 1.4fr 0.9fr;
+  /* Tekstipalsta tarvitsee leipätekstille tilaa; otsikko rajautuu joka
+     tapauksessa omaan max-widthiinsä, joten sen sarake sai kaventua. */
+  grid-template-columns: 0.45fr 1.25fr 1.05fr;
   gap: clamp(2rem, 5vw, 5rem);
   align-items: start;
 }
