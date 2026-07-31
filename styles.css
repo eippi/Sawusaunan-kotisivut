@@ -583,6 +583,36 @@ p {
   text-transform: uppercase;
 }
 
+/* Instagram-syötteen kortit: neliö kuvasuhde, muuten sama kortti kuin
+   julisteilla, jotta osio näyttää samalta syötteen kanssa ja ilman. */
+.feed-card img {
+  aspect-ratio: 1;
+}
+
+.feed-card div {
+  padding-top: 0.7rem;
+}
+
+.feed-card span {
+  color: var(--brown);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.feed-card b {
+  color: var(--brown);
+  font-size: 1.15rem;
+}
+
+a.feed-card {
+  transition: transform 200ms ease;
+}
+
+a.feed-card:hover {
+  transform: rotate(0) translateY(-5px);
+}
+
 .membership-section {
   position: relative;
   padding: clamp(5.5rem, 10vw, 10rem) 0;
