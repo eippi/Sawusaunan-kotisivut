@@ -1,16 +1,28 @@
 :root {
-  --navy: #082a3e;
-  --navy-deep: #061c2a;
-  --cream: #f3e6c7;
-  --cream-light: #faefd7;
+  /* Sininen elää vain tekstissä — ei koskaan isona taustapintana. */
+  --navy: #0d2f42;
+  --navy-deep: #08202f;
+
+  /* Lämmin paperiasteikko. --sand on napattu suoraan torn-paper.png:stä. */
+  --cream: #faf3e4;
+  --cream-light: #fdf9f0;
+  --sand: #f4e2ba;
+
+  /* Ruskea on logon oma sävy ja kannattelee sivun alaosan. */
+  --brown: #6f490a;
+  --brown-deep: #4e3306;
+
+  /* Oranssi vain aksenttina: merkit, alleviivaukset, hoverit. */
   --orange: #f49a00;
-  --brown: #76500e;
-  --ink: #102f42;
+
+  --ink: #0d2f42;
   --muted: #5f6c70;
-  --line: rgba(8, 42, 62, 0.2);
+  --line: rgba(13, 47, 66, 0.2);
   --page: min(1300px, calc(100% - 3rem));
-  --serif: "Bodoni Moda", "Times New Roman", serif;
-  --sans: "Barlow Condensed", "Arial Narrow", sans-serif;
+
+  /* Fraunces = 70-luvun pehmeä display. Figtree = pitkien tekstien työjuhta. */
+  --display: "Fraunces", "Cooper Black", Georgia, serif;
+  --sans: "Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
 }
 
 * {
@@ -30,7 +42,9 @@ body {
   color: var(--ink);
   font-family: var(--sans);
   font-size: 18px;
-  line-height: 1.5;
+  line-height: 1.6;
+  /* Periytyy kaikkialle; Figtree ohittaa akselit joita se ei tunne. */
+  font-variation-settings: "SOFT" 100, "WONK" 1;
   text-rendering: optimizeLegibility;
 }
 
@@ -72,7 +86,8 @@ p {
   left: 0.5rem;
   padding: 0.65rem 1rem;
   background: var(--cream-light);
-  color: var(--navy-deep);
+  color: var(--navy);
+  font-weight: 600;
   transform: translateY(-150%);
 }
 
@@ -82,9 +97,9 @@ p {
 
 .section-label {
   color: var(--brown);
-  font-size: 0.88rem;
+  font-size: 0.82rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
@@ -92,14 +107,16 @@ p {
   color: var(--orange);
 }
 
+/* ---------- Hero ---------- */
+
 .hero {
   position: relative;
   min-height: 100vh;
   min-height: 100svh;
   isolation: isolate;
   overflow: hidden;
-  background: var(--navy-deep);
-  color: var(--cream-light);
+  background: var(--sand);
+  color: var(--navy);
 }
 
 .hero-photo,
@@ -114,16 +131,18 @@ p {
   z-index: -4;
   object-fit: cover;
   object-position: center bottom;
-  filter: saturate(0.82) contrast(1.04);
+  filter: saturate(0.68) contrast(1.02);
   transform: translateY(-7%) scale(1.04);
   transform-origin: center bottom;
 }
 
+/* Lämmin harso sitoo viileän kuvan paletin sävyihin. */
 .hero-tint {
   z-index: -3;
   background:
-    linear-gradient(180deg, rgba(7, 24, 31, 0.32), transparent 34%),
-    rgba(5, 18, 25, 0.12);
+    linear-gradient(180deg, rgba(78, 51, 6, 0.14), transparent 30%),
+    linear-gradient(0deg, rgba(244, 226, 186, 0.42), transparent 32%),
+    rgba(250, 243, 228, 0.2);
 }
 
 .site-header {
@@ -135,7 +154,7 @@ p {
   width: calc(100% - 3rem);
   margin-inline: auto;
   padding-top: 1.7rem;
-  color: var(--navy-deep);
+  color: var(--navy);
 }
 
 .site-header--inner {
@@ -172,9 +191,10 @@ p {
 .main-nav a {
   position: relative;
   padding-bottom: 0.25rem;
-  font-size: clamp(1rem, 1.4vw, 1.22rem);
-  font-weight: 600;
-  letter-spacing: 0.01em;
+  font-family: var(--display);
+  font-size: clamp(1.05rem, 1.4vw, 1.28rem);
+  font-weight: 700;
+  letter-spacing: 0.002em;
 }
 
 .main-nav a::after {
@@ -182,7 +202,7 @@ p {
   right: 0;
   bottom: 0;
   left: 0;
-  height: 2px;
+  height: 3px;
   background: var(--orange);
   content: "";
   transform: scaleX(0);
@@ -200,6 +220,7 @@ p {
   display: none;
 }
 
+/* Yksivärinen, paksu, ei varjoja — kuva on tarpeeksi vaalea kantamaan sen. */
 .window-message {
   position: absolute;
   z-index: 1;
@@ -207,19 +228,17 @@ p {
   left: 50%;
   display: grid;
   justify-items: center;
-  width: min(1120px, calc(100% - 3rem));
-  gap: 0.08em;
-  color: var(--navy-deep);
-  font-family: var(--sans);
-  font-size: clamp(2.45rem, 4.2vw, 4.35rem);
-  font-weight: 700;
-  letter-spacing: -0.015em;
-  line-height: 0.94;
+  /* Fraunces on selvästi leveämpi kuin vanha kondensoitu fontti: leveämpi
+     kontti + maltillisempi katto pitävät lockupin kahdella rivillä. */
+  width: min(1460px, calc(100% - 3rem));
+  gap: 0.04em;
+  color: var(--navy);
+  font-family: var(--display);
+  font-size: clamp(2.2rem, 4.3vw, 4.35rem);
+  font-weight: 900;
+  letter-spacing: -0.005em;
+  line-height: 0.92;
   text-align: center;
-  text-shadow:
-    2px 2px 0 rgba(255, 226, 168, 0.92),
-    0 0 18px rgba(255, 239, 205, 0.72),
-    0 8px 28px rgba(5, 18, 25, 0.22);
   text-transform: uppercase;
   transform: translate(-50%, -50%);
 }
@@ -237,16 +256,14 @@ p {
   position: relative;
   z-index: 0;
   display: block;
-  margin-top: 0.55em;
-  padding: 0.28em 0.7em 0.23em;
-  color: var(--navy-deep);
-  font-size: clamp(0.9rem, 0.42em, 1.35rem);
+  margin-top: 0.62em;
+  padding: 0.3em 0.72em 0.25em;
+  color: var(--navy);
+  font-family: var(--sans);
+  font-size: clamp(0.82rem, 0.34em, 1.1rem);
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   line-height: 1;
-  text-shadow:
-    1px 1px 0 rgba(255, 235, 196, 0.7),
-    0 0 2px rgba(255, 235, 196, 0.32);
   transform: rotate(-2deg);
   isolation: isolate;
 }
@@ -359,11 +376,24 @@ p {
   }
 }
 
+/* ---------- Otsikkotypografia ---------- */
+
+.home-intro h2,
+.section-heading h2,
+.membership-copy h2,
+.social-grid h2,
+.subpage-intro h1 {
+  font-family: var(--display);
+  font-weight: 900;
+  letter-spacing: -0.018em;
+}
+
+/* ---------- Etusivun osiot ---------- */
+
+/* Sama sävy kuin revityssä paperireunassa, jotta sauma katoaa. */
 .home-intro {
   padding: clamp(6rem, 11vw, 11rem) 0;
-  background:
-    radial-gradient(circle at 90% 20%, rgba(244, 154, 0, 0.14), transparent 24rem),
-    var(--cream);
+  background: var(--sand);
 }
 
 .home-intro-grid {
@@ -373,37 +403,27 @@ p {
   align-items: start;
 }
 
-.home-intro h2,
-.section-heading h2,
-.membership-copy h2,
-.social-grid h2,
-.subpage-intro h1 {
-  font-family: var(--serif);
-  font-weight: 500;
-  letter-spacing: -0.055em;
-}
-
 .home-intro h2 {
-  max-width: 12ch;
-  font-size: clamp(3.2rem, 6.5vw, 7rem);
-  line-height: 0.94;
+  max-width: 13ch;
+  font-size: clamp(2.9rem, 5.6vw, 5.9rem);
+  line-height: 0.96;
 }
 
 .home-intro-copy {
   max-width: 28rem;
   padding-top: 0.65rem;
-  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  font-size: clamp(1.02rem, 1.4vw, 1.22rem);
 }
 
 .events-section {
   padding: clamp(5rem, 8vw, 8rem) 0;
   overflow: hidden;
   background:
-    linear-gradient(rgba(250, 239, 215, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(250, 239, 215, 0.035) 1px, transparent 1px),
-    var(--navy);
+    linear-gradient(rgba(13, 47, 66, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(13, 47, 66, 0.045) 1px, transparent 1px),
+    var(--cream);
   background-size: 32px 32px;
-  color: var(--cream-light);
+  color: var(--navy);
 }
 
 .section-heading {
@@ -415,10 +435,10 @@ p {
 }
 
 .section-heading h2 {
-  max-width: 10ch;
+  max-width: 11ch;
   margin-top: 0.45rem;
-  font-size: clamp(3rem, 6vw, 6.5rem);
-  line-height: 0.9;
+  font-size: clamp(2.7rem, 5.2vw, 5.5rem);
+  line-height: 0.94;
 }
 
 .carousel-controls {
@@ -429,18 +449,19 @@ p {
 .carousel-controls button {
   width: 3.2rem;
   height: 3.2rem;
-  border: 1px solid rgba(250, 239, 215, 0.5);
+  border: 2px solid var(--navy);
   border-radius: 50%;
   background: transparent;
-  color: var(--cream-light);
+  color: var(--navy);
   font-size: 1.5rem;
   cursor: pointer;
   transition: background 180ms ease, color 180ms ease, transform 180ms ease;
 }
 
 .carousel-controls button:hover {
-  background: var(--orange);
-  color: var(--navy-deep);
+  background: var(--brown);
+  border-color: var(--brown);
+  color: var(--cream-light);
   transform: rotate(-6deg);
 }
 
@@ -452,7 +473,7 @@ p {
   padding: 1rem 0 2rem;
   overflow-x: auto;
   overscroll-behavior-inline: contain;
-  scrollbar-color: var(--orange) rgba(250, 239, 215, 0.12);
+  scrollbar-color: var(--brown) rgba(13, 47, 66, 0.12);
   scrollbar-width: thin;
   scroll-snap-type: inline mandatory;
 }
@@ -461,7 +482,8 @@ p {
   flex: 0 0 clamp(285px, 34vw, 470px);
   padding: 0.7rem;
   background: var(--cream-light);
-  color: var(--navy-deep);
+  box-shadow: 10px 10px 0 rgba(111, 73, 10, 0.16);
+  color: var(--navy);
   scroll-snap-align: center;
 }
 
@@ -491,12 +513,14 @@ p {
 }
 
 .event-card span {
-  color: var(--orange);
+  color: var(--brown);
   font-weight: 700;
 }
 
 .event-card h3 {
-  font-size: clamp(1.35rem, 2vw, 1.8rem);
+  font-family: var(--display);
+  font-size: clamp(1.3rem, 1.9vw, 1.7rem);
+  font-weight: 800;
   text-transform: uppercase;
 }
 
@@ -504,18 +528,19 @@ p {
   position: relative;
   padding: clamp(5.5rem, 10vw, 10rem) 0;
   overflow: hidden;
-  background: var(--orange);
-  color: var(--navy-deep);
+  background: var(--sand);
+  color: var(--navy);
 }
 
 .membership-section::before {
   position: absolute;
   top: -5rem;
   right: -3rem;
-  color: rgba(250, 239, 215, 0.22);
+  color: rgba(111, 73, 10, 0.12);
   content: "2023";
-  font-family: var(--serif);
+  font-family: var(--display);
   font-size: clamp(12rem, 30vw, 34rem);
+  font-weight: 900;
   line-height: 1;
   pointer-events: none;
 }
@@ -529,37 +554,38 @@ p {
 }
 
 .membership-copy h2 {
-  max-width: 9ch;
+  max-width: 10ch;
   margin-top: 0.7rem;
-  font-size: clamp(3.5rem, 7vw, 7.5rem);
-  line-height: 0.88;
+  font-size: clamp(3rem, 6vw, 6.4rem);
+  line-height: 0.92;
 }
 
 .membership-copy > p:not(.section-label) {
   max-width: 31rem;
   margin-top: 1.5rem;
-  font-size: 1.2rem;
+  font-size: 1.16rem;
 }
 
+/* Ruskea CTA pitää sinisen puhtaasti typografisena. */
 .primary-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   margin-top: 2rem;
-  padding: 0.85rem 1.35rem;
-  border: 2px solid var(--navy-deep);
-  background: var(--navy-deep);
+  padding: 0.9rem 1.5rem;
+  border: 2px solid var(--brown);
+  background: var(--brown);
   color: var(--cream-light);
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   transition: background 180ms ease, color 180ms ease, transform 180ms ease;
 }
 
 .primary-button:hover {
   background: transparent;
-  color: var(--navy-deep);
-  transform: translateY(-3px) rotate(-1deg);
+  color: var(--brown);
+  transform: translateY(-3px);
 }
 
 .qr-card {
@@ -567,7 +593,7 @@ p {
   width: min(100%, 330px);
   padding: 1rem;
   background: var(--cream-light);
-  box-shadow: 14px 14px 0 var(--navy-deep);
+  box-shadow: 14px 14px 0 var(--brown);
   transform: rotate(1.5deg);
   transition: transform 200ms ease;
 }
@@ -586,16 +612,18 @@ p {
 .qr-card span {
   display: block;
   padding-top: 0.7rem;
-  color: var(--navy-deep);
+  color: var(--navy);
   font-weight: 700;
   letter-spacing: 0.08em;
   text-align: center;
   text-transform: uppercase;
 }
 
+/* ---------- Sivun ruskea alaosa ---------- */
+
 .social-section {
   padding: clamp(5.5rem, 9vw, 9rem) 0;
-  background: var(--navy-deep);
+  background: var(--brown);
   color: var(--cream-light);
 }
 
@@ -606,15 +634,15 @@ p {
 }
 
 .social-grid h2 {
-  max-width: 8ch;
+  max-width: 9ch;
   margin-top: 0.6rem;
-  font-size: clamp(3.4rem, 6.5vw, 7rem);
-  line-height: 0.9;
+  font-size: clamp(2.9rem, 5.6vw, 6rem);
+  line-height: 0.94;
 }
 
 .social-links {
   align-self: end;
-  border-top: 1px solid rgba(250, 239, 215, 0.35);
+  border-top: 1px solid rgba(253, 249, 240, 0.32);
 }
 
 .social-links a {
@@ -623,7 +651,7 @@ p {
   gap: 1rem;
   align-items: center;
   padding: 1.35rem 0;
-  border-bottom: 1px solid rgba(250, 239, 215, 0.35);
+  border-bottom: 1px solid rgba(253, 249, 240, 0.32);
   transition: color 180ms ease, padding 180ms ease;
 }
 
@@ -634,17 +662,17 @@ p {
 
 .social-links span {
   color: var(--orange);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
 .social-links strong {
-  font-family: var(--serif);
-  font-size: clamp(1.5rem, 3vw, 2.7rem);
-  font-weight: 500;
-  letter-spacing: -0.04em;
+  font-family: var(--display);
+  font-size: clamp(1.45rem, 2.7vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.012em;
 }
 
 .social-links b {
@@ -653,7 +681,7 @@ p {
 
 .site-footer {
   padding: 2rem 0;
-  background: #04151f;
+  background: var(--brown-deep);
   color: var(--cream-light);
 }
 
@@ -675,7 +703,10 @@ p {
 .footer-grid a {
   border-bottom: 1px solid currentColor;
   color: var(--orange);
+  font-weight: 600;
 }
+
+/* ---------- Alasivut ---------- */
 
 .subpage-body {
   min-height: 100vh;
@@ -691,18 +722,28 @@ p {
   min-height: calc(100vh - 126px);
   padding: clamp(5rem, 9vw, 9rem) 0;
   overflow: hidden;
+  /* Oma pinoutumiskonteksti, jotta jättinumero pysyy taustan päällä
+     mutta sisällön alla myös värillisissä osioissa. */
+  isolation: isolate;
 }
 
 .subpage-intro::after {
   position: absolute;
-  z-index: -1;
+  z-index: 0;
   right: -0.06em;
   bottom: -0.18em;
-  color: rgba(8, 42, 62, 0.055);
+  color: rgba(13, 47, 66, 0.05);
   content: attr(data-number);
-  font-family: var(--serif);
+  font-family: var(--display);
   font-size: min(56vw, 52rem);
+  font-weight: 900;
   line-height: 0.75;
+  pointer-events: none;
+}
+
+.subpage-intro > .page-shell {
+  position: relative;
+  z-index: 1;
 }
 
 .subpage-grid {
@@ -712,32 +753,39 @@ p {
   align-items: start;
 }
 
+/* Katto pidetään maltillisena: yksittäinen pitkä sana (esim. "Sawusauna.")
+   kasvattaa 1fr-sarakkeen min-content-leveyttä ja puristaa viereisen palstan. */
 .subpage-intro h1 {
-  max-width: 8ch;
-  font-size: clamp(4.5rem, 10vw, 11rem);
-  line-height: 0.82;
+  max-width: 9ch;
+  font-size: clamp(3.6rem, 7.6vw, 8rem);
+  line-height: 0.88;
 }
 
 .subpage-copy {
   padding-top: 1rem;
 }
 
+/* Pitkät tekstit pysyvät Figtreessä — display-fontti vain otsikoissa. */
 .subpage-copy .lead,
 .join-intro .lead,
 .contact-intro .lead {
-  font-family: var(--serif);
-  font-size: clamp(1.5rem, 2.5vw, 2.35rem);
-  line-height: 1.2;
+  font-family: var(--sans);
+  font-size: clamp(1.24rem, 1.9vw, 1.62rem);
+  font-weight: 500;
+  line-height: 1.42;
 }
 
 .subpage-copy p + p {
   margin-top: 1.5rem;
 }
 
+.subpage-copy p:not(.lead) {
+  max-width: 34rem;
+  color: rgba(13, 47, 66, 0.86);
+}
+
 .join-intro {
-  background:
-    radial-gradient(circle at 85% 20%, rgba(250, 239, 215, 0.24), transparent 24rem),
-    var(--orange);
+  background: var(--sand);
 }
 
 .join-page-grid,
@@ -750,7 +798,7 @@ p {
 
 .join-page-grid h1,
 .contact-page-grid h1 {
-  max-width: 8ch;
+  max-width: 9ch;
   margin-top: 0.7rem;
 }
 
@@ -759,13 +807,27 @@ p {
   margin-top: 1.5rem;
 }
 
+/* Yhteystietosivulla linkkipalsta tarvitsee enemmän tilaa kuin liity-sivun
+   QR-kortti, muuten "Sawusauna Ry" katkeaa kahdelle riville. */
+.contact-page-grid {
+  grid-template-columns: 1fr 1fr;
+}
+
+/* Vain työpöydällä: mobiilissa rivi latistuu kahteen sarakkeeseen, eikä tämä
+   saa ohittaa sitä specificityllä. */
+@media (min-width: 901px) {
+  .contact-page-grid .social-links a {
+    grid-template-columns: 0.42fr 1fr auto;
+  }
+}
+
 .contact-intro {
-  background:
-    linear-gradient(rgba(250, 239, 215, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(250, 239, 215, 0.035) 1px, transparent 1px),
-    var(--navy);
-  background-size: 36px 36px;
+  background: var(--brown);
   color: var(--cream-light);
+}
+
+.contact-intro::after {
+  color: rgba(253, 249, 240, 0.08);
 }
 
 .contact-page-grid .lead {
@@ -804,9 +866,9 @@ p {
     margin-top: 0.5rem;
     padding: 0.45rem 0;
     border: 0;
-    border-bottom: 2px solid var(--orange);
+    border-bottom: 3px solid var(--orange);
     background: transparent;
-    color: var(--navy-deep);
+    color: var(--navy);
     font-weight: 700;
     cursor: pointer;
   }
@@ -820,7 +882,7 @@ p {
     justify-items: start;
     gap: 1rem;
     padding: 6rem 2rem;
-    background: var(--navy-deep);
+    background: var(--brown);
     color: var(--cream-light);
     visibility: hidden;
     opacity: 0;
@@ -833,16 +895,15 @@ p {
   }
 
   .main-nav a {
-    font-family: var(--serif);
-    font-size: clamp(2.8rem, 10vw, 5rem);
-    font-weight: 500;
-    line-height: 1;
+    font-size: clamp(2.5rem, 9vw, 4.4rem);
+    font-weight: 900;
+    line-height: 1.02;
   }
 
   .window-message {
     top: 32%;
     width: calc(100% - 2rem);
-    font-size: clamp(1.85rem, 5.8vw, 3rem);
+    font-size: clamp(1.5rem, 4.6vw, 2.7rem);
   }
 
   .home-intro-grid,
@@ -909,14 +970,15 @@ p {
 
   .hero-tint {
     background:
-      linear-gradient(180deg, rgba(7, 24, 31, 0.26), transparent 36%),
-      rgba(5, 18, 25, 0.08);
+      linear-gradient(180deg, rgba(78, 51, 6, 0.12), transparent 32%),
+      linear-gradient(0deg, rgba(244, 226, 186, 0.36), transparent 30%),
+      rgba(250, 243, 228, 0.16);
   }
 
   .window-message {
     top: 32%;
     width: calc(100% - 1.5rem);
-    font-size: clamp(1.5rem, 6.1vw, 1.95rem);
+    font-size: clamp(1.35rem, 5.4vw, 1.75rem);
     line-height: 0.98;
   }
 
@@ -932,7 +994,7 @@ p {
   .section-heading h2,
   .membership-copy h2,
   .social-grid h2 {
-    font-size: clamp(2.8rem, 14vw, 4.6rem);
+    font-size: clamp(2.5rem, 12vw, 4rem);
   }
 
   .section-heading {
@@ -970,7 +1032,7 @@ p {
   }
 
   .social-links strong {
-    font-size: 1.65rem;
+    font-size: 1.6rem;
   }
 
   .footer-grid {
@@ -996,7 +1058,7 @@ p {
   }
 
   .subpage-intro h1 {
-    font-size: clamp(4rem, 20vw, 6.5rem);
+    font-size: clamp(3.4rem, 17vw, 5.6rem);
   }
 }
 
