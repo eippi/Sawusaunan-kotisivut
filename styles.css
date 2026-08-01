@@ -754,12 +754,35 @@ a.event-card:hover {
 }
 
 .site-footer {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   padding: 2rem 0;
   background: var(--brown-deep);
   color: var(--cream-light);
 }
 
+.site-footer::before {
+  position: absolute;
+  inset: -10% 0 0;
+  z-index: -1;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(78, 51, 6, 0) 0%,
+      rgba(78, 51, 6, 0.16) 38%,
+      rgba(78, 51, 6, 0.28) 100%
+    ),
+    url("/assets/window-condensation.webp") center / cover no-repeat;
+  content: "";
+  mix-blend-mode: screen;
+  opacity: 0.18;
+  pointer-events: none;
+}
+
 .footer-grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 0.45fr 1fr auto;
   gap: 2rem;
