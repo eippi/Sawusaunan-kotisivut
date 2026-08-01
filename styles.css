@@ -539,48 +539,37 @@ p {
 
 .event-card {
   flex: 0 0 clamp(285px, 34vw, 470px);
-  padding: 0.7rem;
-  background: var(--cream-light);
-  box-shadow: 10px 10px 0 rgba(111, 73, 10, 0.16);
+  padding: 0.9rem 0.9rem 4.3rem;
+  background: #fffdf8;
+  border: 1px solid rgba(13, 47, 66, 0.1);
+  box-shadow: 0 16px 34px rgba(13, 47, 66, 0.14);
   color: var(--navy);
   scroll-snap-align: center;
+  transition: transform 220ms ease, box-shadow 220ms ease;
 }
 
-.event-card:nth-child(1) {
-  transform: rotate(-0.8deg);
+.event-card:nth-child(odd) {
+  transform: rotate(-1.9deg);
 }
 
-.event-card:nth-child(2) {
-  transform: rotate(0.7deg);
+.event-card:nth-child(even) {
+  transform: rotate(1.7deg);
 }
 
-.event-card:nth-child(3) {
-  transform: rotate(-0.35deg);
+.event-card:nth-child(3n) {
+  transform: rotate(-0.65deg);
+}
+
+.event-card:hover {
+  box-shadow: 0 22px 40px rgba(13, 47, 66, 0.18);
+  transform: rotate(0deg) translateY(-6px);
 }
 
 .event-card img {
+  display: block;
   width: 100%;
   aspect-ratio: 4 / 5;
   object-fit: cover;
-}
-
-.event-card div {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.8rem 0.3rem 0.25rem;
-}
-
-.event-card span {
-  color: var(--brown);
-  font-weight: 700;
-}
-
-.event-card h3 {
-  font-family: var(--display);
-  font-size: clamp(1.3rem, 1.9vw, 1.7rem);
-  font-weight: 800;
-  text-transform: uppercase;
 }
 
 /* Instagram-syötteen kortit: neliö kuvasuhde, muuten sama kortti kuin
@@ -589,28 +578,16 @@ p {
   aspect-ratio: 1;
 }
 
-.feed-card div {
-  padding-top: 0.7rem;
-}
-
-.feed-card span {
-  color: var(--brown);
-  font-size: 0.9rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-}
-
-.feed-card b {
-  color: var(--brown);
-  font-size: 1.15rem;
-}
-
+a.event-card,
 a.feed-card {
+  color: inherit;
+  text-decoration: none;
   transition: transform 200ms ease;
 }
 
-a.feed-card:hover {
-  transform: rotate(0) translateY(-5px);
+a.feed-card:hover,
+a.event-card:hover {
+  transform: rotate(0deg) translateY(-6px);
 }
 
 .membership-section {

@@ -55,35 +55,29 @@ const carousel = document.querySelector("[data-carousel]");
 const previousButton = document.querySelector("[data-carousel-prev]");
 const nextButton = document.querySelector("[data-carousel-next]");
 
-/* Instagram-syöte korvaa karusellin sisällön vain jos julkaisuja on.
-   Ilman syötettä HTML:n tapahtumajulisteet jäävät voimaan, joten sivu ei
-   ole missään vaiheessa tyhjä eikä rikki. */
+/* Instagram feed only replaces the fallback carousel when posts exist, so
+   the homepage always keeps a working photo gallery. */
 const renderFeed = () => {
   const posts = Array.isArray(feed?.posts) ? feed.posts : [];
   if (!carousel || !posts.length) return;
 
-  // Osoite tulee rajapinnasta, joten hyväksytään vain Instagramin omat linkit
   const safeLink = (url) => {
     try {
-      const u = new URL(url);
-      return u.protocol === "https:" && u.hostname.endsWith("instagram.com")
-        ? u.href
+      const parsed = new URL(url);
+      return parsed.protocol === "https:" &&
+        parsed.hostname.endsWith("instagram.com")
+        ? parsed.href
         : null;
     } catch {
       return null;
     }
   };
 
-  const date = new Intl.DateTimeFormat("fi-FI", {
-    day: "numeric",
-    month: "numeric",
-    year: "numeric",
-  });
-
   const cards = posts.map((post) => {
     const href = safeLink(post.permalink);
     const card = document.createElement(href ? "a" : "article");
     card.className = "event-card feed-card";
+
     if (href) {
       card.href = href;
       card.target = "_blank";
@@ -95,19 +89,7 @@ const renderFeed = () => {
     img.alt = post.alt || "Sawusaunan Instagram-julkaisu";
     img.loading = "lazy";
 
-    const meta = document.createElement("div");
-    const when = document.createElement("span");
-    when.textContent = post.timestamp ? date.format(new Date(post.timestamp)) : "";
-    meta.append(when);
-
-    if (href) {
-      const arrow = document.createElement("b");
-      arrow.setAttribute("aria-hidden", "true");
-      arrow.textContent = "↗";
-      meta.append(arrow);
-    }
-
-    card.append(img, meta);
+    card.append(img);
     return card;
   });
 
