@@ -1,0 +1,11 @@
+# Cloudflare Pages lukee tämän tiedoston. Viten tuottamat tiedostonimet
+# sisältävät sisällön tiivisteen, joten ne voi pitää selaimen välimuistissa
+# vuoden — uusi julkaisu vaihtaa nimen. HTML jää oletukselle, jotta muutokset
+# näkyvät heti.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY

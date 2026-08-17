@@ -18,7 +18,12 @@
   --ink: #0d2f42;
   --muted: #5f6c70;
   --line: rgba(13, 47, 66, 0.2);
-  --page: min(1300px, calc(100% - 3rem));
+  /* 6rem kourua: 3rem jätti display-otsikot kiinni ruudun reunassa noin
+     1000-1350px:n leveyksillä, joilla sisältö ei vielä osu 1300px kattoon. */
+  --page: min(1300px, calc(100% - 6rem));
+
+  /* Repeämän korkeus jaettuna: footeri vetää itsensä tämän verran ylös. */
+  --tear-h: clamp(72px, 8vw, 118px);
 
   /* Fraunces = 70-luvun pehmeä display. Figtree = pitkien tekstien työjuhta. */
   --display: "Fraunces", "Cooper Black", Georgia, serif;
@@ -181,12 +186,15 @@ p {
 
 /* ---------- Hero ---------- */
 
+/* Katto korkeudelle: kuvan aihe on ankkuroitu alareunaan, joten mitä korkeampi
+   hero, sitä enemmän tyhjää taivasta otsikon ja porukan väliin. Isoilla
+   näytöillä hero ei siis enää veny koko ruudun mittaiseksi. */
 .hero {
   position: relative;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  min-height: 100svh;
+  min-height: min(100svh, 860px);
   isolation: isolate;
   overflow: hidden;
   background: var(--sand);
@@ -370,9 +378,32 @@ p {
   bottom: -1px;
   left: 0;
   width: 100%;
-  height: clamp(72px, 8vw, 118px);
+  height: var(--tear-h);
   object-fit: fill;
   pointer-events: none;
+}
+
+/* Sama repeämä muille kuin hiekansävyisille saumoille. torn-paper.webp on
+   hiekanvärinen kuva, joten väriä ei voi vaihtaa — alfakanava kelpaa silti
+   maskiksi, jolloin sama reuna toistuu seuraavan osion omalla värillä.
+   Tulee edeltävän osion pohjalle, eli osio tarvitsee position: relative.
+   Vain tasaisille väreille: jos seuraavalla osiolla on tekstuuri, repeämä
+   pitää tehdä osioon itseensä (ks. .site-footer), muuten sauman alle jää
+   tasainen kaistale ja tekstuuri alkaa vasta siitä. */
+.section-tear {
+  position: absolute;
+  z-index: 3;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: var(--tear-h);
+  mask: url("/assets/torn-paper.webp") no-repeat center / 100% 100%;
+  -webkit-mask: url("/assets/torn-paper.webp") no-repeat center / 100% 100%;
+  pointer-events: none;
+}
+
+.section-tear--brown {
+  background: var(--brown);
 }
 
 @keyframes title-settle {
@@ -502,7 +533,38 @@ p {
 
 .carousel-controls {
   display: flex;
+  align-items: center;
   gap: 0.65rem;
+}
+
+/* Nuolet yksin oikeassa reunassa eivät kerro montako kuvaa on jäljellä eivätkä
+   kanna tarpeeksi painoa ison otsikon vastapainoksi. Palkki tekee molemmat. */
+.carousel-progress {
+  width: clamp(64px, 11vw, 150px);
+  height: 3px;
+  margin-right: 0.5rem;
+  background: var(--line);
+}
+
+.carousel-progress span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: var(--brown);
+  transition: width 200ms ease;
+}
+
+.carousel-controls button:disabled {
+  cursor: default;
+  opacity: 0.3;
+}
+
+/* Hover ei saa luvata liikettä nappiin, joka ei enää vie mihinkään. */
+.carousel-controls button:disabled:hover {
+  transform: none;
+  border-color: var(--navy);
+  background: transparent;
+  color: var(--navy);
 }
 
 .carousel-controls button {
@@ -654,9 +716,11 @@ a.event-card:hover {
   transform: translateY(-3px);
 }
 
+/* 330px vei enemmän huomiota kuin osion otsikko. 240px jättää koodille yhä
+   noin 208px kuvaa, mikä riittää puhelimen kameralle reilusti. */
 .qr-card {
   justify-self: end;
-  width: min(100%, 330px);
+  width: min(100%, 240px);
   padding: 1rem;
   background: var(--cream-light);
   box-shadow: 14px 14px 0 var(--brown);
@@ -753,13 +817,27 @@ a.event-card:hover {
   font-size: 1.5rem;
 }
 
+/* Footeri repeää itse irti edellisestä osiosta: maskin ylälaita on sama
+   paperireuna, ja footeri vedetään repeämän verran ylös edellisen osion
+   päälle. Näin höyrytekstuuri jatkuu repeämään asti eikä väliin jää
+   tasaista kaistaletta. Toinen maskikerros pitää loppufooterin ehjänä. */
 .site-footer {
   position: relative;
+  z-index: 1;
   isolation: isolate;
   overflow: hidden;
-  padding: 2rem 0;
+  margin-top: calc(-1 * var(--tear-h));
+  padding: calc(2rem + var(--tear-h)) 0 2rem;
   background: var(--brown-deep);
   color: var(--cream-light);
+  mask:
+    url("/assets/torn-paper.webp") no-repeat top / 100% var(--tear-h),
+    linear-gradient(#000, #000) no-repeat bottom / 100%
+      calc(100% - var(--tear-h) + 1px);
+  -webkit-mask:
+    url("/assets/torn-paper.webp") no-repeat top / 100% var(--tear-h),
+    linear-gradient(#000, #000) no-repeat bottom / 100%
+      calc(100% - var(--tear-h) + 1px);
 }
 
 .site-footer::before {
@@ -830,8 +908,7 @@ a.event-card:hover {
 }
 
 /* Pitkät tekstit pysyvät Figtreessä — display-fontti vain otsikoissa. */
-.join-intro .lead,
-.contact-intro .lead {
+.join-intro .lead {
   font-family: var(--sans);
   font-size: clamp(1.24rem, 1.9vw, 1.62rem);
   font-weight: 500;
@@ -902,13 +979,15 @@ a.event-card:hover {
   pointer-events: none;
 }
 
+/* Riviväli 1.06, ei tiukempi: otsikko katkeaa pehmotavuilla keskeltä sanaa,
+   jolloin j/p-alapidennykset osuisivat seuraavan rivin ä-pisteisiin. */
 .story-statement h2 {
   max-width: 15ch;
   font-family: var(--display);
   font-size: clamp(2.5rem, 5.8vw, 6rem);
   font-weight: 900;
   letter-spacing: -0.02em;
-  line-height: 0.94;
+  line-height: 1.06;
 }
 
 /* Tukilause on väitteen toinen puolisko, ei kuvateksti — riittävästi painoa. */
@@ -1005,6 +1084,26 @@ a.event-card:hover {
 .contact-intro {
   background: var(--brown);
   color: var(--cream-light);
+}
+
+/* 404 lainaa alasivujen rakenteen. Yksi palsta riittää, joten otsikko saa
+   enemmän leveyttä kuin muualla — muuten kolme sanaa venyisi neljälle riville. */
+.error-intro {
+  background: var(--sand);
+}
+
+.error-intro h1 {
+  max-width: 14ch;
+  margin-top: 0.7rem;
+}
+
+.error-intro .lead {
+  max-width: 32rem;
+  margin-top: 1.5rem;
+  font-family: var(--sans);
+  font-size: clamp(1.24rem, 1.9vw, 1.62rem);
+  font-weight: 500;
+  line-height: 1.42;
 }
 
 .contact-page-grid .lead {
@@ -1161,7 +1260,8 @@ a.event-card:hover {
     line-height: 0.98;
   }
 
-  .paper-tear {
+  .paper-tear,
+  .section-tear {
     height: 62px;
   }
 

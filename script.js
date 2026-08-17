@@ -122,3 +122,43 @@ previousButton?.addEventListener("click", () => {
 nextButton?.addEventListener("click", () => {
   carousel?.scrollBy({ left: getCarouselStep(), behavior: "smooth" });
 });
+
+/* Palkki ja nuolten tilat kertovat missä kohtaa karusellia ollaan. Lasketaan
+   vieritysosuudesta eikä korttien indeksistä, jotta luku pitää paikkansa myös
+   kesken snap-liikkeen ja kun näkyviä kortteja on eri määrä eri leveyksillä. */
+const progressBar = document.querySelector("[data-carousel-progress]");
+
+const updateCarouselControls = () => {
+  if (!(carousel instanceof HTMLElement)) return;
+
+  const max = carousel.scrollWidth - carousel.clientWidth;
+  const ratio = max > 1 ? carousel.scrollLeft / max : 0;
+
+  if (progressBar instanceof HTMLElement) {
+    progressBar.style.width = `${Math.round(ratio * 100)}%`;
+  }
+
+  /* Yhden pikselin liukuma: snap ei aina osu tasan reunaan. */
+  if (previousButton) previousButton.disabled = carousel.scrollLeft <= 1;
+  if (nextButton) nextButton.disabled = carousel.scrollLeft >= max - 1;
+};
+
+if (carousel instanceof HTMLElement) {
+  let ticking = false;
+
+  carousel.addEventListener(
+    "scroll",
+    () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        ticking = false;
+        updateCarouselControls();
+      });
+    },
+    { passive: true },
+  );
+
+  window.addEventListener("resize", updateCarouselControls);
+  updateCarouselControls();
+}

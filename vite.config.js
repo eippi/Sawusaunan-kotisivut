@@ -8,6 +8,7 @@ export default defineConfig({
         sawusauna: "sawusauna.html",
         join: "liity.html",
         contact: "yhteys.html",
+        notFound: "404.html",
       },
     },
   },

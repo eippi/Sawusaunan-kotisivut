@@ -9,6 +9,24 @@
       content="Sawusauna Ry on Turun kauppakorkeakoulun saunomis- ja rentoutumiskerho."
     />
     <title>Sawusauna Ry | Etusivu</title>
+    <link rel="canonical" href="https://sawusauna.pages.dev/" />
+
+    <!-- Jakolinkkien esikatselu: Instagram-bio, WhatsApp, LinkedIn. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Sawusauna Ry" />
+    <meta property="og:locale" content="fi_FI" />
+    <meta property="og:url" content="https://sawusauna.pages.dev/" />
+    <meta property="og:title" content="Sawusauna Ry" />
+    <meta property="og:description" content="Turun kauppakorkeakoulun saunomis- ja rentoutumiskerho. Sauna-, avanto- ja hyvinvointitapahtumia opiskelijoille." />
+    <meta property="og:image" content="https://sawusauna.pages.dev/og-share.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Sawusaunan jäseniä paljussa lumisateessa järven rannalla"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
@@ -19,6 +37,17 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/styles.css" />
+
+    <!-- Sisältö paljastuu skriptillä (.reveal). Jos skripti ei lataudu,
+         sivu jäisi tyhjäksi, joten ilman JS:ää kaikki on heti näkyvissä. -->
+    <noscript>
+      <style>
+        .reveal {
+          opacity: 1;
+          transform: none;
+        }
+      </style>
+    </noscript>
   </head>
   <body data-page="home">
     <a class="skip-link" href="#home-content">Siirry sisältöön</a>
@@ -90,14 +119,18 @@
       <section class="events-section" aria-labelledby="events-title">
         <div class="page-shell section-heading reveal">
           <div>
-            <p class="section-label light" data-feed-label>Menneitä tapahtumia</p>
-            <h2 id="events-title" data-feed-heading>Lauteilta ja niiden vierestä.</h2>
+            <h2 id="events-title" data-feed-heading>
+              Löylyä, avantoa ja lunta.
+            </h2>
           </div>
           <div class="carousel-controls" aria-label="Karusellin ohjaimet">
-            <button type="button" data-carousel-prev aria-label="Edellinen tapahtuma">
+            <div class="carousel-progress" aria-hidden="true">
+              <span data-carousel-progress></span>
+            </div>
+            <button type="button" data-carousel-prev aria-label="Edellinen kuva">
               ←
             </button>
-            <button type="button" data-carousel-next aria-label="Seuraava tapahtuma">
+            <button type="button" data-carousel-next aria-label="Seuraava kuva">
               →
             </button>
           </div>
@@ -107,42 +140,56 @@
           <article class="event-card">
             <img
               src="/assets/event-gallery-1.jpg"
-              alt="SawuSaunan tapahtumatunnelmaa rantasaunalla"
+              alt="Porukkaa poreammeessa lumisadeessa järven rannalla"
               loading="lazy"
             />
           </article>
           <article class="event-card">
             <img
               src="/assets/event-gallery-2.jpg"
-              alt="SawuSaunan tapahtumavieraita saunomassa"
+              alt="Avantouimareita laiturilla ja vedessä talvisella järvellä"
               loading="lazy"
             />
           </article>
           <article class="event-card">
             <img
               src="/assets/event-gallery-3.jpg"
-              alt="SawuSaunan tapahtumapäivä järvimaisemassa"
+              alt="Kaksi täyttä paljua rantaterassilla lumisateessa"
               loading="lazy"
             />
           </article>
           <article class="event-card">
             <img
               src="/assets/event-gallery-4.jpg"
-              alt="SawuSaunan tapahtumavieraita ulkoilmassa"
+              alt="Avantouimari nousemassa portaita ylös jäisestä vedestä"
               loading="lazy"
             />
           </article>
           <article class="event-card">
             <img
               src="/assets/event-gallery-5.jpg"
-              alt="SawuSaunan tapahtumatunnelmaa löylyjen lomassa"
+              alt="Grillaamista lumisateessa järvimaiseman äärellä"
               loading="lazy"
             />
           </article>
           <article class="event-card">
             <img
               src="/assets/event-gallery-6.jpg"
-              alt="SawuSaunan tapahtumapäivän tunnelmia rannalla"
+              alt="Kaksi saunojaa istumassa rantatuoleilla lumisella rannalla"
+              loading="lazy"
+            />
+          </article>
+          <article class="event-card">
+            <img
+              src="/assets/event-gallery-7.jpg"
+              alt="Makkaranpaistoa grillillä tapahtumavieraiden kesken"
+              loading="lazy"
+            />
+          </article>
+          <article class="event-card">
+            <img
+              src="/assets/event-gallery-8.jpg"
+              alt="Kaksi tapahtumavierasta jakamassa munkkia lumisateessa"
               loading="lazy"
             />
           </article>
@@ -181,13 +228,14 @@
             <span>Skannaa ja liity</span>
           </a>
         </div>
+        <div class="section-tear section-tear--brown" aria-hidden="true"></div>
       </section>
 
       <section class="social-section" aria-labelledby="social-title">
         <div class="page-shell social-grid">
           <div class="reveal">
             <p class="section-label light">Yhteystiedot</p>
-            <h2 id="social-title">Löydä meidät linjoilta.</h2>
+            <h2 id="social-title">Nähdään lauteilla.</h2>
           </div>
           <div class="social-links reveal">
             <a
