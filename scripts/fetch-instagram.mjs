@@ -69,15 +69,25 @@ const firstLine = (caption) =>
     .map((s) => s.trim())
     .find(Boolean) || "";
 
+// Instagramin id on käytännössä aina pelkkiä numeroita, mutta se päätyy
+// tiedostonimeen — rajataan varmuuden vuoksi turvallisiin merkkeihin, jottei
+// rajapinnan poikkeava vastaus voi koskaan tuottaa polkua kansion ulkopuolelle.
+const safeId = (id) => String(id).replace(/[^A-Za-z0-9_-]/g, "");
+
 const posts = [];
 for (const m of items) {
+  const id = safeId(m.id);
+  if (!id) {
+    console.error(`Kelvoton julkaisun id (${m.id}), ohitetaan.`);
+    continue;
+  }
   const imgRes = await fetch(m.src);
   if (!imgRes.ok) {
-    console.error(`Kuvan lataus epäonnistui (${m.id}), ohitetaan.`);
+    console.error(`Kuvan lataus epäonnistui (${id}), ohitetaan.`);
     continue;
   }
   const buf = Buffer.from(await imgRes.arrayBuffer());
-  const file = `${m.id}.webp`;
+  const file = `${id}.webp`;
 
   await sharp(buf)
     .resize(WIDTH, WIDTH, { fit: "cover", position: "attention" })
@@ -86,7 +96,7 @@ for (const m of items) {
 
   const line = firstLine(m.caption);
   posts.push({
-    id: m.id,
+    id,
     image: `/instagram/${file}`,
     permalink: m.permalink,
     timestamp: m.timestamp,
