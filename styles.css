@@ -330,6 +330,24 @@ p {
   text-transform: uppercase;
 }
 
+/* Pehmeä scrimi otsikon takana varmistaa luettavuuden riippumatta siitä mihin
+   kohtaan taivasta kuva sattuu asettumaan — ilman scrimiä kontrasti nojasi
+   pelkästään sattumanvaraisesti tasaiseen pilviharmaaseen. em-yksiköt
+   skaalautuvat otsikon oman clamp()-koon mukana joka leveydellä. */
+.window-message::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -0.7em -0.9em;
+  background: radial-gradient(
+    ellipse 60% 62% at center,
+    rgba(250, 243, 228, 0.6) 0%,
+    rgba(250, 243, 228, 0.32) 48%,
+    transparent 78%
+  );
+  pointer-events: none;
+}
+
 .window-message > span {
   display: block;
   animation: title-settle 600ms cubic-bezier(0.22, 0.78, 0.24, 1) both;
@@ -888,13 +906,12 @@ a.event-card:hover {
   background: var(--cream);
 }
 
-.subpage-main {
-  min-height: calc(100vh - 126px);
-}
-
+/* Ei enää täyttä ruutukorkeutta oletuksena: kevyen sisällön sivuilla
+   (liity, yhteys) se venytti osion lähes koko näytön mittaiseksi ja
+   keskitetty sisältö jäi kellumaan ison tyhjän tilan keskelle ennen footeria.
+   404-sivu saa oman täyskorkean käsittelynsä alempana (.error-intro). */
 .subpage-intro {
   position: relative;
-  min-height: calc(100vh - 126px);
   padding: clamp(5rem, 9vw, 9rem) 0;
   overflow: hidden;
 }
@@ -1168,8 +1185,11 @@ a.event-card:hover {
 }
 
 /* 404 lainaa alasivujen rakenteen. Yksi palsta riittää, joten otsikko saa
-   enemmän leveyttä kuin muualla — muuten kolme sanaa venyisi neljälle riville. */
+   enemmän leveyttä kuin muualla — muuten kolme sanaa venyisi neljälle riville.
+   Täysi ruutukorkeus on tarkoituksellinen juuri tälle sivulle: eksyneen
+   kävijän pitäisi nähdä koko viesti heti ilman vierittämistä. */
 .error-intro {
+  min-height: calc(100vh - 126px);
   background: var(--sand);
 }
 
@@ -1423,8 +1443,7 @@ a.event-card:hover {
     grid-column: auto;
   }
 
-  .subpage-main,
-  .subpage-intro {
+  .error-intro {
     min-height: calc(100vh - 98px);
   }
 
