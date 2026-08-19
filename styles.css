@@ -1007,13 +1007,94 @@ a.event-card:hover {
 }
 
 /* Konkretia abstraktin sijaan: kerhon omat julisteet todistavat väitteen.
-   Käyttävät etusivun .event-card-tyyliä, joten kallistukset ja varjot ovat
-   samat — mutta ruudukossa, ei karusellissa. */
-.story-events {
+   Kolme julistetta ovat keskenään eri kuvitustyyliä (jäätalvi / juhlapinkki /
+   vesisininen), eikä sitä kannata piilotella värisuodattimella — se joko
+   turmelisi kuvituksen tai jäisi liian hienovaraiseksi tehotakseen. Sen sijaan
+   kaikki kolme saavat identtisen "kiinnitetty ilmoitustaululle" -käsittelyn
+   (matta, varjo, teippikoroste, sama kallistuslogiikka), jolloin väriero
+   lukee kolmena esineenä yhdessä kokoelmassa, ei kolmena kilpailevana
+   designjärjestelmänä. */
+.poster-board {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: clamp(1.1rem, 2.4vw, 2.2rem);
-  margin-top: clamp(1.8rem, 3vw, 2.6rem);
+  gap: clamp(1.6rem, 3vw, 2.6rem);
+  margin-top: clamp(2rem, 3.4vw, 3rem);
+}
+
+.poster-pin {
+  position: relative;
+  background: #fffdf8;
+  border: 1px solid rgba(13, 47, 66, 0.1);
+  box-shadow: 0 14px 30px rgba(13, 47, 66, 0.15);
+  padding: 0.8rem 0.8rem 1.05rem;
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.poster-pin:nth-child(1) {
+  transform: rotate(-1.1deg);
+}
+
+.poster-pin:nth-child(2) {
+  transform: rotate(0.9deg);
+}
+
+.poster-pin:nth-child(3) {
+  transform: rotate(-0.5deg);
+}
+
+.poster-pin:hover {
+  transform: rotate(0deg) translateY(-5px);
+  box-shadow: 0 20px 38px rgba(13, 47, 66, 0.2);
+}
+
+/* Lainaa spray-markin oranssia, jotta teippi ei ole uusi elementti vaan sama
+   sanasto kuin muualla sivulla. */
+.poster-pin .tape {
+  position: absolute;
+  top: -0.6rem;
+  left: 50%;
+  width: 2.9rem;
+  height: 1.05rem;
+  background: rgba(244, 154, 0, 0.58);
+  transform: translateX(-50%) rotate(-3deg);
+  box-shadow: 0 2px 5px rgba(13, 47, 66, 0.2);
+}
+
+.poster-pin figure {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+}
+
+.poster-pin img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Ohut sisäänpäin tummentuva reunavinjetti pitää kolme eriväristä julistetta
+   visuaalisesti "samassa valossa" ilman että se muuttaa itse kuvitusta. */
+.poster-pin figure::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 26px rgba(13, 47, 66, 0.16);
+  pointer-events: none;
+}
+
+/* Kuvateksti irti julisteen sisäisestä typografiasta omaksi riviksi, jotta
+   julisteet eivät kilpaile omalla tekstillään sivun typografian kanssa. */
+.poster-pin figcaption {
+  padding-top: 0.75rem;
+  margin-top: 0.7rem;
+  border-top: 1px solid rgba(13, 47, 66, 0.08);
+  text-align: center;
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 0.98rem;
+  letter-spacing: 0.01em;
+  color: var(--navy);
 }
 
 .story-claim {
@@ -1293,7 +1374,7 @@ a.event-card:hover {
     flex-basis: 82vw;
   }
 
-  .story-events {
+  .poster-board {
     grid-template-columns: 1fr;
     max-width: 22rem;
   }
