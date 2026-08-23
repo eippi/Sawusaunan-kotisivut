@@ -619,7 +619,7 @@ p {
 
 .event-card {
   flex: 0 0 clamp(285px, 34vw, 470px);
-  padding: 0.9rem 0.9rem 4.3rem;
+  padding: 0.9rem;
   background: #fffdf8;
   border: 1px solid rgba(13, 47, 66, 0.1);
   box-shadow: 0 16px 34px rgba(13, 47, 66, 0.14);
@@ -1377,7 +1377,13 @@ a.event-card:hover {
     font-size: clamp(2.5rem, 12vw, 4rem);
   }
 
+  /* flex-wrap puuttui: otsikko + ohjaimet eivät koskaan oikeasti mahtuneet
+     samalle riville kapealla näytöllä, joten ohjaimet työntyivät näkymän
+     ulkopuolelle. body:n overflow-x:clip piilotti tämän eikä se näkynyt
+     vaakavieritymänä — vain ohjainten katoamisena. margin-top alla oletti jo
+     tämän, mutta wrap puuttui sen toteuttamiseksi. */
   .section-heading {
+    flex-wrap: wrap;
     align-items: start;
   }
 
