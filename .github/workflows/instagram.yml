@@ -1,0 +1,78 @@
+name: Instagram-syöte
+
+on:
+  schedule:
+    # Kerran vuorokaudessa klo 04:00 UTC
+    - cron: "0 4 * * *"
+  workflow_dispatch:
+
+# Vain yksi ajo kerrallaan, jottei synny päällekkäisiä committeja
+concurrency:
+  group: instagram-feed
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    env:
+      # secrets-kontekstia ei voi luotettavasti käyttää suoraan if-ehdossa,
+      # joten olemassaolo välitetään ympäristömuuttujana
+      HAS_PAT: ${{ secrets.INSTAGRAM_TOKEN_PAT != '' && 'yes' || 'no' }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Hae uusimmat julkaisut
+        id: fetch
+        env:
+          INSTAGRAM_TOKEN: ${{ secrets.INSTAGRAM_TOKEN }}
+        # continue-on-error: syöte saa epäonnistua rikkomatta ajoa —
+        # edelliset kuvat jäävät voimaan eikä sivusto hajoa
+        continue-on-error: true
+        run: node scripts/fetch-instagram.mjs
+
+      - name: Committoi muutokset
+        run: |
+          if [ -z "$(git status --porcelain instagram.json public/instagram)" ]; then
+            echo "Ei muutoksia."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add instagram.json public/instagram
+          git commit -m "Päivitä Instagram-syöte"
+          git push
+
+      # --- Tokenin uusinta ---------------------------------------------------
+      # Token vanhenee 60 vrk:ssa eikä vanhentunutta voi enää uusia. Uusitaan
+      # päivittäin, jolloin voimassaolo ei koskaan pääse lähelle rajaa.
+      - name: Uusi token
+        id: refresh
+        env:
+          INSTAGRAM_TOKEN: ${{ secrets.INSTAGRAM_TOKEN }}
+        run: node scripts/refresh-instagram-token.mjs
+
+      - name: Tallenna uusittu token
+        if: env.HAS_PAT == 'yes'
+        env:
+          GH_TOKEN: ${{ secrets.INSTAGRAM_TOKEN_PAT }}
+          NEW_TOKEN: ${{ steps.refresh.outputs.token }}
+        run: |
+          gh secret set INSTAGRAM_TOKEN --repo "$GITHUB_REPOSITORY" --body "$NEW_TOKEN"
+          echo "Token tallennettu, voimassa ${{ steps.refresh.outputs.days }} vrk."
+
+      - name: Muistuta puuttuvasta PAT:sta
+        if: env.HAS_PAT != 'yes'
+        run: |
+          echo "::warning::INSTAGRAM_TOKEN_PAT puuttuu, joten uusittua tokenia ei tallennettu."
+          echo "::warning::Nykyinen token vanhenee 60 vrk kuluessa myontamisesta ja syote lakkaa paivittymasta."
